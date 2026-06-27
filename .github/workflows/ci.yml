@@ -1,25 +1,22 @@
-name: HRMS CI Pipeline
+name: HRMS CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
 
 jobs:
   backend-tests:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Install backend dependencies
+      - name: Install backend deps
         working-directory: ./backend
         run: npm install
 
@@ -29,24 +26,22 @@ jobs:
 
   frontend-tests:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Install frontend dependencies
+      - name: Install frontend deps
         working-directory: ./frontend
         run: npm install
 
       - name: Install Playwright browsers
         working-directory: ./frontend
-        run: npx playwright install
+        run: npx playwright install --with-deps
 
-      - name: Run Playwright tests
+      - name: Run frontend tests
         working-directory: ./frontend
         run: npx playwright test
