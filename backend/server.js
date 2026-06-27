@@ -1,7 +1,5 @@
-try {
+if (process.env.NODE_ENV !== "test") {
   require("dotenv").config();
-} catch (err) {
-  console.log("dotenv not available in CI, skipping...");
 }
 
 
