@@ -46,8 +46,11 @@ jobs:
       working-directory: ./frontend
       run: npm start &
 
-    - name: Wait for app to load
-      run: sleep 15
+    - name: Install wait-on
+      run: npm install -g wait-on
+
+    - name: Wait for app to be ready
+      run: wait-on http://localhost:3000
 
     - name: Run frontend tests
       working-directory: ./frontend
