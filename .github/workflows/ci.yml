@@ -27,31 +27,35 @@ jobs:
   frontend-tests:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: 18
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
-    - name: Install frontend deps
-      working-directory: ./frontend
-      run: npm install
+      - name: Install frontend deps
+        working-directory: ./frontend
+        run: npm install
 
-    - name: Install Playwright browsers
-      working-directory: ./frontend
-      run: npx playwright install --with-deps
+      - name: Build React app
+        working-directory: ./frontend
+        run: npm run build
 
-    - name: Start React app
-      working-directory: ./frontend
-      run: npm start &
+      - name: Install serve
+        run: npm install -g serve
 
-    - name: Install wait-on
-      run: npm install -g wait-on
+      - name: Start production server
+        working-directory: ./frontend
+        run: serve -s build -l 3000 &
 
-    - name: Wait for app to be ready
-      run: wait-on http://localhost:3000
+      - name: Wait for server
+        run: npx wait-on http://localhost:3000
 
-    - name: Run frontend tests
-      working-directory: ./frontend
-      run: npx playwright test
+      - name: Install Playwright browsers
+        working-directory: ./frontend
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        working-directory: ./frontend
+        run: npx playwright test
