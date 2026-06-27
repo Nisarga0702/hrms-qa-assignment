@@ -164,6 +164,12 @@ app.post('/login', login);
 
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT,()=> console.log(`HRMS Server is running on port ${PORT}`));
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`HRMS Server is running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
 
 
