@@ -25,8 +25,8 @@ jobs:
         run: npm test
 
   frontend-tests:
-  runs-on: ubuntu-latest
-  steps:
+    runs-on: ubuntu-latest
+    steps:
     - uses: actions/checkout@v4
 
     - name: Setup Node
