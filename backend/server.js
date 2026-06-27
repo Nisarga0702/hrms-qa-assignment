@@ -1,4 +1,8 @@
-require("dotenv").config();
+try {
+  require("dotenv").config();
+} catch (err) {
+  console.log("dotenv not available in CI, skipping...");
+}
 
 
 const express = require('express');
