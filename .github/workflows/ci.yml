@@ -41,7 +41,13 @@ jobs:
 
       - name: Start React app
         working-directory: ./frontend
-        run: npx concurrently "npm start" "npx wait-on http://localhost:3000"
+        run:
+          npm start > react.log 2>&1 &
+          sleep 60
+
+      - name: Check React log
+        working-directory: ./frontend
+        run: cat react.log
 
       - name: Install Playwright browsers
         working-directory: ./frontend
