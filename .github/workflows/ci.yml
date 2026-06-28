@@ -41,6 +41,8 @@ jobs:
 
       - name: Start React app
         working-directory: ./frontend
+         env:
+          NODE_OPTIONS: --openssl-legacy-provider
         run: |
           npm start > react.log 2>&1 &
           sleep 60
